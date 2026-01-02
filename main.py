@@ -17,12 +17,12 @@ SOCIETY_CHARGE = 200
 
 # --- 2. GOOGLE DRIVE SYNC LOGIC ---
 def get_drive_service():
-    # In Streamlit Cloud, you put your JSON info in "Secrets"
-    # For local testing, put your JSON file path here
+    # This updated logic correctly handles Streamlit TOML secrets
     if "gcp_service_account" in st.secrets:
-        info = json.loads(st.secrets["gcp_service_account"])
+        # Instead of json.loads, we pass the secret directly as a dictionary
+        info = dict(st.secrets["gcp_service_account"])
     else:
-        # Fallback for your local testing
+        # Local fallback remains the same
         with open("your_service_account_key.json") as f:
             info = json.load(f)
             
